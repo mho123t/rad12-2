@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام تحضير الموظفين</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            max-width: 150px;
+            margin-bottom: 15px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1, h2 {
+            color: #2c3e50;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .signature-pad {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 10px;
+            background-color: white;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .records {
+            margin-top: 30px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: right;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        
+        .whatsapp-btn {
+            background-color: #25D366;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            padding: 15px;
+            border-radius: 50%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        
+        .whatsapp-btn:hover {
+            background-color: #128C7E;
+        }
+        
+        .whatsapp-icon {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="0eb5aeee-a476-40a2-a873-e2d4fb40fb01.jpeg" alt="شعار الشركة" class="logo">
+        <h1>نظام تحضير الموظفين</h1>
+    </div>
+    
+    <div class="container">
+        <div class="section">
+            <h2>تسجيل الحضور</h2>
+            <form id="attendanceForm">
+                <div class="form-group">
+                    <label for="employeeName">اسم الموظف</label>
+                    <input type="text" id="employeeName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="attendanceDate">تاريخ الحضور</label>
+                    <input type="date" id="attendanceDate" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="attendanceStatus">الحالة</label>
+                    <select id="attendanceStatus" required>
+                        <option value="حاضر">حاضر</option>
+                        <option value="غائب">غائب</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>التوقيع</label>
+                    <div id="signaturePad1" class="signature-pad"></div>
+                    <button type="button" id="clearSignature1">مسح التوقيع</button>
+                </div>
+                
+                <button type="submit">حفظ الحضور</button>
+            </form>
+        </div>
+        
+        <div class="section">
+            <h2>تسجيل الانصراف</h2>
+            <form id="departureForm">
+                <div class="form-group">
+                    <label for="departureEmployeeName">اسم الموظف</label>
+                    <input type="text" id="departureEmployeeName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="departureTime">وقت الانصراف</label>
+                    <input type="time" id="departureTime" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>التوقيع</label>
+                    <div id="signaturePad2" class="signature-pad"></div>
+                    <button type="button" id="clearSignature2">مسح التوقيع</button>
+                </div>
+                
+                <button type="submit">حفظ الانصراف</button>
+            </form>
+        </div>
+        
+        <div class="records">
+            <h2>سجلات الحضور والانصراف</h2>
+            <table id="recordsTable">
+                <thead>
+                    <tr>
+                        <th>اسم الموظف</th>
+                        <th>التاريخ</th>
+                        <th>الحالة</th>
+                        <th>وقت الانصراف</th>
+                        <th>توقيع الحضور</th>
+                        <th>توقيع الانصراف</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- السجلات ستضاف هنا عبر الجافاسكربت -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <a href="https://wa.me/00971588155123" class="whatsapp-btn" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="واتساب" class="whatsapp-icon">
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+    <script>
+        // تهيئة لوحات التوقيع
+        const canvas1 = document.createElement('canvas');
+        canvas1.width = 400;
+        canvas1.height = 200;
+        document.getElementById('signaturePad1').appendChild(canvas1);
+        const signaturePad1 = new SignaturePad(canvas1);
+        
+        const canvas2 = document.createElement('canvas');
+        canvas2.width = 400;
+        canvas2.height = 200;
+        document.getElementById('signaturePad2').appendChild(canvas2);
+        const signaturePad2 = new SignaturePad(canvas2);
+        
+        // مسح التوقيع
+        document.getElementById('clearSignature1').addEventListener('click', function() {
+            signaturePad1.clear();
+        });
+        
+        document.getElementById('clearSignature2').addEventListener('click', function() {
+            signaturePad2.clear();
+        });
+        
+        // تخزين السجلات
+        let attendanceRecords = [];
+        
+        // معالجة تسجيل الحضور
+        document.getElementById('attendanceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const employeeName = document.getElementById('employeeName').value;
+            const attendanceDate = document.getElementById('attendanceDate').value;
+            const attendanceStatus = document.getElementById('attendanceStatus').value;
+            const signature = signaturePad1.isEmpty() ? null : signaturePad1.toDataURL();
+            
+            const record = {
+                employeeName,
+                attendanceDate,
+                attendanceStatus,
+                departureTime: null,
+                attendanceSignature: signature,
+                departureSignature: null
+            };
+            
+            attendanceRecords.push(record);
+            updateRecordsTable();
+            
+            // إعادة تعيين النموذج
+            this.reset();
+            signaturePad1.clear();
+            
+            alert('تم تسجيل الحضور بنجاح!');
+        });
+        
+        // معالجة تسجيل الانصراف
+        document.getElementById('departureForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const employeeName = document.getElementById('departureEmployeeName').value;
+            const departureTime = document.getElementById('departureTime').value;
+            const signature = signaturePad2.isEmpty() ? null : signaturePad2.toDataURL();
+            
+            // البحث عن سجل الحضور للموظف وتحديثه
+            let found = false;
+            for (let i = attendanceRecords.length - 1; i >= 0; i--) {
+                if (attendanceRecords[i].employeeName === employeeName && !attendanceRecords[i].departureTime) {
+                    attendanceRecords[i].departureTime = departureTime;
+                    attendanceRecords[i].departureSignature = signature;
+                    found = true;
+                    break;
+                }
+            }
+            
+            if (!found) {
+                alert('لم يتم العثور على سجل حضور للموظف أو تم تسجيل الانصراف مسبقاً');
+                return;
+            }
+            
+            updateRecordsTable();
+            
+            // إعادة تعيين النموذج
+            this.reset();
+            signaturePad2.clear();
+            
+            alert('تم تسجيل الانصراف بنجاح!');
+        });
+        
+        // تحديث جدول السجلات
+        function updateRecordsTable() {
+            const tbody = document.querySelector('#recordsTable tbody');
+            tbody.innerHTML = '';
+            
+            attendanceRecords.forEach(record => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>${record.employeeName}</td>
+                    <td>${record.attendanceDate}</td>
+                    <td>${record.attendanceStatus}</td>
+                    <td>${record.departureTime || '-'}</td>
+                    <td>${record.attendanceSignature ? '<img src="' + record.attendanceSignature + '" width="100">' : '-'}</td>
+                    <td>${record.departureSignature ? '<img src="' + record.departureSignature + '" width="100">' : '-'}</td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+    </script>
+</body>
+</html>
