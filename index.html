@@ -4,136 +4,350 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>نظام تحضير الموظفين</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4cc9f0;
+            --success-color: #4ad66d;
+            --warning-color: #f8961e;
+            --danger-color: #ef233c;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+        }
+        
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f5f5f5;
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f0f2f5;
             margin: 0;
-            padding: 20px;
-            color: #333;
+            padding: 0;
+            color: var(--dark-color);
         }
         
         .header {
             text-align: center;
             margin-bottom: 30px;
-            background-color: #2c3e50;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 25px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
         }
         
         .logo {
-            max-width: 150px;
-            margin-bottom: 15px;
+            max-width: 120px;
+            max-height: 80px;
+            border-radius: 8px;
+            border: 2px solid white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
         
         .container {
             max-width: 1000px;
-            margin: 0 auto;
+            margin: 0 auto 50px;
             background-color: white;
             padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
         }
         
         h1, h2 {
-            color: #2c3e50;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin: 10px 0;
+        }
+        
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent-color);
+            border-radius: 3px;
+        }
+        
+        h2 {
+            font-size: 22px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
         }
         
         .section {
             margin-bottom: 40px;
-            padding: 20px;
-            border: 1px solid #eee;
-            border-radius: 8px;
+            padding: 25px;
+            border-radius: 10px;
+            background-color: var(--light-color);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
         
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         
         label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-color);
         }
         
         input, select {
             width: 100%;
-            padding: 10px;
+            padding: 12px 15px;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: 8px;
             font-size: 16px;
+            font-family: 'Tajawal', sans-serif;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(76, 201, 240, 0.2);
+        }
+        
+        .signature-container {
+            margin-top: 15px;
+        }
+        
+        .signature-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
         }
         
         .signature-pad {
             border: 1px solid #ddd;
-            border-radius: 4px;
-            margin-top: 10px;
+            border-radius: 8px;
             background-color: white;
+            width: 100%;
+            height: 150px;
+            touch-action: none;
+        }
+        
+        .signature-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
         }
         
         button {
-            background-color: #3498db;
-            color: white;
             border: none;
-            padding: 12px 20px;
-            border-radius: 4px;
+            padding: 12px 25px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 16px;
-            margin-top: 10px;
-            transition: background-color 0.3s;
+            font-weight: 500;
+            font-family: 'Tajawal', sans-serif;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
         
-        button:hover {
-            background-color: #2980b9;
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-secondary {
+            background-color: #e9ecef;
+            color: var(--dark-color);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #dee2e6;
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #3ac05b;
         }
         
         .records {
-            margin-top: 30px;
+            margin-top: 40px;
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
         }
         
         th, td {
-            padding: 12px;
+            padding: 15px;
             text-align: right;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #eee;
         }
         
         th {
-            background-color: #f2f2f2;
-            font-weight: bold;
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .signature-img {
+            max-width: 120px;
+            max-height: 60px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            background-color: white;
+            padding: 3px;
         }
         
         .whatsapp-btn {
             background-color: #25D366;
             position: fixed;
-            bottom: 20px;
-            left: 20px;
-            padding: 15px;
+            bottom: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4);
             z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            animation: pulse 2s infinite;
         }
         
         .whatsapp-btn:hover {
             background-color: #128C7E;
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.6);
         }
         
         .whatsapp-icon {
-            width: 30px;
-            height: 30px;
+            width: 36px;
+            height: 36px;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+        
+        .no-records {
+            text-align: center;
+            padding: 30px;
+            color: #6c757d;
+            font-size: 18px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .section {
+                padding: 15px;
+            }
+            
+            th, td {
+                padding: 10px;
+                font-size: 14px;
+            }
+            
+            .signature-pad {
+                height: 120px;
+            }
+            
+            .whatsapp-btn {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                left: 20px;
+            }
+            
+            .whatsapp-icon {
+                width: 28px;
+                height: 28px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <img src="0eb5aeee-a476-40a2-a873-e2d4fb40fb01.jpeg" alt="شعار الشركة" class="logo">
+        <div class="logo-container">
+            <img src="logo.png" alt="شعار الشركة" class="logo" id="companyLogo">
+        </div>
         <h1>نظام تحضير الموظفين</h1>
     </div>
     
@@ -143,7 +357,7 @@
             <form id="attendanceForm">
                 <div class="form-group">
                     <label for="employeeName">اسم الموظف</label>
-                    <input type="text" id="employeeName" required>
+                    <input type="text" id="employeeName" required placeholder="أدخل اسم الموظف">
                 </div>
                 
                 <div class="form-group">
@@ -154,18 +368,30 @@
                 <div class="form-group">
                     <label for="attendanceStatus">الحالة</label>
                     <select id="attendanceStatus" required>
+                        <option value="" disabled selected>اختر الحالة</option>
                         <option value="حاضر">حاضر</option>
                         <option value="غائب">غائب</option>
                     </select>
                 </div>
                 
                 <div class="form-group">
-                    <label>التوقيع</label>
-                    <div id="signaturePad1" class="signature-pad"></div>
-                    <button type="button" id="clearSignature1">مسح التوقيع</button>
+                    <div class="signature-label">
+                        <label>التوقيع</label>
+                        <small>قم بالتوقيع في المنطقة المخصصة</small>
+                    </div>
+                    <div class="signature-container">
+                        <div id="signaturePad1" class="signature-pad"></div>
+                        <div class="signature-buttons">
+                            <button type="button" id="clearSignature1" class="btn-secondary">
+                                مسح التوقيع
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 
-                <button type="submit">حفظ الحضور</button>
+                <button type="submit" class="btn-primary">
+                    حفظ الحضور
+                </button>
             </form>
         </div>
         
@@ -174,7 +400,7 @@
             <form id="departureForm">
                 <div class="form-group">
                     <label for="departureEmployeeName">اسم الموظف</label>
-                    <input type="text" id="departureEmployeeName" required>
+                    <input type="text" id="departureEmployeeName" required placeholder="أدخل اسم الموظف">
                 </div>
                 
                 <div class="form-group">
@@ -183,12 +409,23 @@
                 </div>
                 
                 <div class="form-group">
-                    <label>التوقيع</label>
-                    <div id="signaturePad2" class="signature-pad"></div>
-                    <button type="button" id="clearSignature2">مسح التوقيع</button>
+                    <div class="signature-label">
+                        <label>التوقيع</label>
+                        <small>قم بالتوقيع في المنطقة المخصصة</small>
+                    </div>
+                    <div class="signature-container">
+                        <div id="signaturePad2" class="signature-pad"></div>
+                        <div class="signature-buttons">
+                            <button type="button" id="clearSignature2" class="btn-secondary">
+                                مسح التوقيع
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 
-                <button type="submit">حفظ الانصراف</button>
+                <button type="submit" class="btn-success">
+                    حفظ الانصراف
+                </button>
             </form>
         </div>
         
@@ -205,125 +442,232 @@
                         <th>توقيع الانصراف</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <!-- السجلات ستضاف هنا عبر الجافاسكربت -->
+                <tbody id="recordsBody">
+                    <tr class="no-records">
+                        <td colspan="6">لا توجد سجلات متاحة</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
     </div>
     
-    <a href="https://wa.me/00971588155123" class="whatsapp-btn" target="_blank">
+    <a href="https://wa.me/00971588155123" class="whatsapp-btn" target="_blank" id="whatsappButton">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="واتساب" class="whatsapp-icon">
     </a>
 
-    <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
     <script>
-        // تهيئة لوحات التوقيع
-        const canvas1 = document.createElement('canvas');
-        canvas1.width = 400;
-        canvas1.height = 200;
-        document.getElementById('signaturePad1').appendChild(canvas1);
-        const signaturePad1 = new SignaturePad(canvas1);
-        
-        const canvas2 = document.createElement('canvas');
-        canvas2.width = 400;
-        canvas2.height = 200;
-        document.getElementById('signaturePad2').appendChild(canvas2);
-        const signaturePad2 = new SignaturePad(canvas2);
-        
-        // مسح التوقيع
-        document.getElementById('clearSignature1').addEventListener('click', function() {
-            signaturePad1.clear();
-        });
-        
-        document.getElementById('clearSignature2').addEventListener('click', function() {
-            signaturePad2.clear();
-        });
-        
-        // تخزين السجلات
-        let attendanceRecords = [];
-        
-        // معالجة تسجيل الحضور
-        document.getElementById('attendanceForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const employeeName = document.getElementById('employeeName').value;
-            const attendanceDate = document.getElementById('attendanceDate').value;
-            const attendanceStatus = document.getElementById('attendanceStatus').value;
-            const signature = signaturePad1.isEmpty() ? null : signaturePad1.toDataURL();
-            
-            const record = {
-                employeeName,
-                attendanceDate,
-                attendanceStatus,
-                departureTime: null,
-                attendanceSignature: signature,
-                departureSignature: null
-            };
-            
-            attendanceRecords.push(record);
-            updateRecordsTable();
-            
-            // إعادة تعيين النموذج
-            this.reset();
-            signaturePad1.clear();
-            
-            alert('تم تسجيل الحضور بنجاح!');
-        });
-        
-        // معالجة تسجيل الانصراف
-        document.getElementById('departureForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const employeeName = document.getElementById('departureEmployeeName').value;
-            const departureTime = document.getElementById('departureTime').value;
-            const signature = signaturePad2.isEmpty() ? null : signaturePad2.toDataURL();
-            
-            // البحث عن سجل الحضور للموظف وتحديثه
-            let found = false;
-            for (let i = attendanceRecords.length - 1; i >= 0; i--) {
-                if (attendanceRecords[i].employeeName === employeeName && !attendanceRecords[i].departureTime) {
-                    attendanceRecords[i].departureTime = departureTime;
-                    attendanceRecords[i].departureSignature = signature;
-                    found = true;
-                    break;
-                }
+        document.addEventListener('DOMContentLoaded', function() {
+            // تحميل الشعار إذا كان موجوداً
+            const logoImage = document.getElementById('companyLogo');
+            try {
+                // يمكنك استبدال هذا بمسار الصورة الفعلي إذا كانت مخزنة في مكان آخر
+                logoImage.src = '0eb5aeee-a476-40a2-a873-e2d4fb40fb01.jpeg';
+                logoImage.onerror = function() {
+                    logoImage.src = 'https://via.placeholder.com/120x80?text=شعار+الشركة';
+                };
+            } catch (e) {
+                logoImage.src = 'https://via.placeholder.com/120x80?text=شعار+الشركة';
             }
             
-            if (!found) {
-                alert('لم يتم العثور على سجل حضور للموظف أو تم تسجيل الانصراف مسبقاً');
-                return;
-            }
-            
-            updateRecordsTable();
-            
-            // إعادة تعيين النموذج
-            this.reset();
-            signaturePad2.clear();
-            
-            alert('تم تسجيل الانصراف بنجاح!');
-        });
-        
-        // تحديث جدول السجلات
-        function updateRecordsTable() {
-            const tbody = document.querySelector('#recordsTable tbody');
-            tbody.innerHTML = '';
-            
-            attendanceRecords.forEach(record => {
-                const row = document.createElement('tr');
-                
-                row.innerHTML = `
-                    <td>${record.employeeName}</td>
-                    <td>${record.attendanceDate}</td>
-                    <td>${record.attendanceStatus}</td>
-                    <td>${record.departureTime || '-'}</td>
-                    <td>${record.attendanceSignature ? '<img src="' + record.attendanceSignature + '" width="100">' : '-'}</td>
-                    <td>${record.departureSignature ? '<img src="' + record.departureSignature + '" width="100">' : '-'}</td>
-                `;
-                
-                tbody.appendChild(row);
+            // تهيئة لوحات التوقيع
+            const canvas1 = document.createElement('canvas');
+            canvas1.width = document.getElementById('signaturePad1').offsetWidth;
+            canvas1.height = 150;
+            document.getElementById('signaturePad1').appendChild(canvas1);
+            const signaturePad1 = new SignaturePad(canvas1, {
+                backgroundColor: 'rgb(255, 255, 255)',
+                penColor: 'rgb(0, 0, 0)'
             });
-        }
+            
+            const canvas2 = document.createElement('canvas');
+            canvas2.width = document.getElementById('signaturePad2').offsetWidth;
+            canvas2.height = 150;
+            document.getElementById('signaturePad2').appendChild(canvas2);
+            const signaturePad2 = new SignaturePad(canvas2, {
+                backgroundColor: 'rgb(255, 255, 255)',
+                penColor: 'rgb(0, 0, 0)'
+            });
+            
+            // تعديل حجم لوحات التوقيع عند تغيير حجم النافذة
+            window.addEventListener('resize', function() {
+                canvas1.width = document.getElementById('signaturePad1').offsetWidth;
+                canvas2.width = document.getElementById('signaturePad2').offsetWidth;
+            });
+            
+            // مسح التوقيع
+            document.getElementById('clearSignature1').addEventListener('click', function() {
+                signaturePad1.clear();
+            });
+            
+            document.getElementById('clearSignature2').addEventListener('click', function() {
+                signaturePad2.clear();
+            });
+            
+            // تخزين السجلات في localStorage
+            let attendanceRecords = JSON.parse(localStorage.getItem('attendanceRecords')) || [];
+            
+            // معالجة تسجيل الحضور
+            document.getElementById('attendanceForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const employeeName = document.getElementById('employeeName').value.trim();
+                const attendanceDate = document.getElementById('attendanceDate').value;
+                const attendanceStatus = document.getElementById('attendanceStatus').value;
+                
+                if (!employeeName || !attendanceDate || !attendanceStatus) {
+                    alert('الرجاء ملء جميع الحقول المطلوبة');
+                    return;
+                }
+                
+                const signature = signaturePad1.isEmpty() ? null : signaturePad1.toDataURL();
+                
+                // التحقق من عدم وجود سجل حضور لنفس الموظف في نفس اليوم
+                const existingRecordIndex = attendanceRecords.findIndex(record => 
+                    record.employeeName === employeeName && 
+                    record.attendanceDate === attendanceDate
+                );
+                
+                if (existingRecordIndex !== -1) {
+                    if (confirm('هناك سجل حضور لهذا الموظف في هذا التاريخ بالفعل. هل تريد تحديثه؟')) {
+                        attendanceRecords[existingRecordIndex] = {
+                            ...attendanceRecords[existingRecordIndex],
+                            attendanceStatus,
+                            attendanceSignature: signature
+                        };
+                    } else {
+                        return;
+                    }
+                } else {
+                    const record = {
+                        id: Date.now(),
+                        employeeName,
+                        attendanceDate,
+                        attendanceStatus,
+                        departureTime: null,
+                        attendanceSignature: signature,
+                        departureSignature: null
+                    };
+                    
+                    attendanceRecords.push(record);
+                }
+                
+                // حفظ السجلات وتحديث الجدول
+                saveRecords();
+                updateRecordsTable();
+                
+                // إعادة تعيين النموذج
+                this.reset();
+                signaturePad1.clear();
+                
+                alert('تم تسجيل الحضور بنجاح!');
+            });
+            
+            // معالجة تسجيل الانصراف
+            document.getElementById('departureForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const employeeName = document.getElementById('departureEmployeeName').value.trim();
+                const departureTime = document.getElementById('departureTime').value;
+                
+                if (!employeeName || !departureTime) {
+                    alert('الرجاء ملء جميع الحقول المطلوبة');
+                    return;
+                }
+                
+                const signature = signaturePad2.isEmpty() ? null : signaturePad2.toDataURL();
+                
+                // البحث عن سجل الحضور للموظف (أحدث سجل بدون انصراف)
+                let foundRecord = null;
+                for (let i = attendanceRecords.length - 1; i >= 0; i--) {
+                    if (attendanceRecords[i].employeeName === employeeName && 
+                        !attendanceRecords[i].departureTime) {
+                        foundRecord = attendanceRecords[i];
+                        break;
+                    }
+                }
+                
+                if (!foundRecord) {
+                    alert('لم يتم العثور على سجل حضور للموظف أو تم تسجيل الانصراف مسبقاً');
+                    return;
+                }
+                
+                // تحديث سجل الانصراف
+                foundRecord.departureTime = departureTime;
+                foundRecord.departureSignature = signature;
+                
+                // حفظ السجلات وتحديث الجدول
+                saveRecords();
+                updateRecordsTable();
+                
+                // إعادة تعيين النموذج
+                this.reset();
+                signaturePad2.clear();
+                
+                alert('تم تسجيل الانصراف بنجاح!');
+            });
+            
+            // تحديث جدول السجلات
+            function updateRecordsTable() {
+                const tbody = document.getElementById('recordsBody');
+                tbody.innerHTML = '';
+                
+                if (attendanceRecords.length === 0) {
+                    tbody.innerHTML = '<tr class="no-records"><td colspan="6">لا توجد سجلات متاحة</td></tr>';
+                    return;
+                }
+                
+                // عرض السجلات من الأحدث إلى الأقدم
+                attendanceRecords.slice().reverse().forEach(record => {
+                    const row = document.createElement('tr');
+                    
+                    row.innerHTML = `
+                        <td>${record.employeeName}</td>
+                        <td>${formatDate(record.attendanceDate)}</td>
+                        <td>${record.attendanceStatus}</td>
+                        <td>${record.departureTime ? formatTime(record.departureTime) : '-'}</td>
+                        <td>${record.attendanceSignature ? 
+                            `<img src="${record.attendanceSignature}" class="signature-img" alt="توقيع الحضور">` : 
+                            '-'}</td>
+                        <td>${record.departureSignature ? 
+                            `<img src="${record.departureSignature}" class="signature-img" alt="توقيع الانصراف">` : 
+                            '-'}</td>
+                    `;
+                    
+                    tbody.appendChild(row);
+                });
+            }
+            
+            // حفظ السجلات في localStorage
+            function saveRecords() {
+                localStorage.setItem('attendanceRecords', JSON.stringify(attendanceRecords));
+            }
+            
+            // تنسيق التاريخ
+            function formatDate(dateString) {
+                if (!dateString) return '-';
+                const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+                return new Date(dateString).toLocaleDateString('ar-EG', options);
+            }
+            
+            // تنسيق الوقت
+            function formatTime(timeString) {
+                if (!timeString) return '-';
+                return timeString.substring(0, 5); // إزالة الثواني إن وجدت
+            }
+            
+            // تهيئة تاريخ اليوم كقيمة افتراضية
+            document.getElementById('attendanceDate').valueAsDate = new Date();
+            
+            // تحميل السجلات عند بدء التشغيل
+            updateRecordsTable();
+            
+            // تأكيد أن زر الواتساب يعمل
+            document.getElementById('whatsappButton').addEventListener('click', function(e) {
+                // يمكنك إضافة أي تحقق إضافي هنا إذا لزم الأمر
+                console.log('تم النقر على زر الواتساب');
+            });
+        });
     </script>
 </body>
 </html>
