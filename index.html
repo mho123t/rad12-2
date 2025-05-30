@@ -28,11 +28,6 @@
             background-color: var(--cream);
             color: var(--dark);
             line-height: 1.6;
-            background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
-            background-blend-mode: overlay;
         }
         
         .container {
@@ -52,18 +47,6 @@
             position: relative;
             overflow: hidden;
             border: 2px solid var(--gold);
-        }
-        
-        .header::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80') center/cover;
-            opacity: 0.15;
-            z-index: 0;
         }
         
         .header-content {
@@ -270,32 +253,6 @@
             box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
         }
         
-        .whatsapp-btn::after {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                to bottom right,
-                rgba(255, 255, 255, 0) 0%,
-                rgba(255, 255, 255, 0) 45%,
-                rgba(255, 255, 255, 0.3) 48%,
-                rgba(255, 255, 255, 0.3) 52%,
-                rgba(255, 255, 255, 0) 55%,
-                rgba(255, 255, 255, 0) 100%
-            );
-            transform: rotate(30deg);
-            animation: shine 3s infinite;
-        }
-        
-        @keyframes shine {
-            0% { transform: translateX(-100%) rotate(30deg); }
-            20% { transform: translateX(100%) rotate(30deg); }
-            100% { transform: translateX(100%) rotate(30deg); }
-        }
-        
         .footer {
             text-align: center;
             padding: 2rem 0;
@@ -465,7 +422,7 @@
             </section>
         </div>
         
-        <a href="https://wa.me/971581505066" id="whatsapp-link" class="btn whatsapp-btn" target="_blank">
+        <a href="#" id="whatsapp-link" class="btn whatsapp-btn">
             <i class="fab fa-whatsapp"></i> إرسال البيانات عبر واتساب
         </a>
         
@@ -557,9 +514,6 @@
             showAlert('attendance-alert', 'تم تسجيل الحضور بنجاح!', 'success');
             
             setTimeout(() => {
-                document.getElementById('employee-name').value = '';
-                document.getElementById('attendance-status').value = '';
-                attendanceSignaturePad.clear();
                 document.getElementById('attendance-alert').style.display = 'none';
             }, 3000);
         });
@@ -583,24 +537,63 @@
             showAlert('checkout-alert', 'تم تسجيل الانصراف بنجاح!', 'success');
             
             setTimeout(() => {
-                document.getElementById('checkout-name').value = '';
-                document.getElementById('checkout-notes').value = '';
-                checkoutSignaturePad.clear();
                 document.getElementById('checkout-alert').style.display = 'none';
             }, 3000);
         });
         
-        // وظائف مساعدة
-        function getStatusText(status) {
-            switch(status) {
-                case 'present': return 'حاضر';
-                case 'late': return 'متأخر';
-                case 'absent': return 'غائب';
-                case 'vacation': return 'إجازة';
-                default: return 'غير محدد';
+        // إرسال البيانات عبر واتساب
+        document.getElementById('whatsapp-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const employeeName = document.getElementById('employee-name').value || 'غير محدد';
+            const attendanceDate = document.getElementById('attendance-date').value || 'غير محدد';
+            const attendanceTime = document.getElementById('attendance-time').value || 'غير محدد';
+            const attendanceStatus = document.getElementById('attendance-status').value;
+            
+            let statusText = 'غير محدد';
+            switch(attendanceStatus) {
+                case 'present': statusText = 'حاضر'; break;
+                case 'late': statusText = 'متأخر'; break;
+                case 'absent': statusText = 'غائب'; break;
+                case 'vacation': statusText = 'إجازة'; break;
             }
-        }
+            
+            const checkoutName = document.getElementById('checkout-name').value || 'غير محدد';
+            const checkoutDate = document.getElementById('checkout-date').value || 'غير محدد';
+            const checkoutTime = document.getElementById('checkout-time').value || 'غير محدد';
+            const checkoutNotes = document.getElementById('checkout-notes').value || 'لا توجد ملاحظات';
+            
+            const message = `*تقرير الحضور والانصراف - مطعم ريدان للمندي*
+            
+📅 *تاريخ التقرير:* ${new Date().toLocaleDateString('ar-EG')}
+⏰ *وقت التقرير:* ${new Date().toLocaleTimeString('ar-EG')}
+
+👨‍💼 *بيانات الحضور:*
+- الاسم: ${employeeName}
+- التاريخ: ${attendanceDate}
+- الوقت: ${attendanceTime}
+- الحالة: ${statusText}
+
+🚪 *بيانات الانصراف:*
+- الاسم: ${checkoutName}
+- التاريخ: ${checkoutDate}
+- الوقت: ${checkoutTime}
+- الملاحظات: ${checkoutNotes}
+
+_تم إنشاء هذا التقرير تلقائياً بواسطة نظام إدارة الموظفين_
+_جميع الحقوق محفوظة © ${new Date().getFullYear()} مطعم ريدان للمندي_`;
+
+            const phoneNumber = '971581505066'; // بدون 009 أو +
+            const encodedMessage = encodeURIComponent(message);
+            
+            // إنشاء رابط واتساب
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            
+            // فتح الرابط في نافذة جديدة
+            window.open(whatsappUrl, '_blank');
+        });
         
+        // وظائف مساعدة
         function showAlert(id, message, type) {
             const alert = document.getElementById(id);
             alert.textContent = message;
