@@ -1,202 +1,209 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>تسجيل حضور الموظف - مطعم ريدان المندي</title>
-  <style>
-    body {
-      font-family: 'Cairo', sans-serif;
-      background-color: #fffaf2;
-      margin: 0;
-      padding: 20px;
-      color: #333;
-    }
-
-    h1 {
-      text-align: center;
-      color: #b32d00;
-    }
-
-    .form-section {
-      background-color: #fff;
-      border: 1px solid #ddd;
-      padding: 20px;
-      margin: 20px auto;
-      max-width: 600px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-
-    label {
-      display: block;
-      margin-top: 10px;
-      font-weight: bold;
-    }
-
-    input, select {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-family: inherit;
-    }
-
-    canvas {
-      border: 1px solid #999;
-      border-radius: 5px;
-      width: 100%;
-      height: 150px;
-      margin-top: 10px;
-      cursor: crosshair;
-      background-color: #fdfdfd;
-    }
-
-    button {
-      margin-top: 20px;
-      width: 100%;
-      padding: 15px;
-      background-color: #b32d00;
-      color: white;
-      font-size: 18px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #a12700;
-    }
-
-    .section-title {
-      text-align: center;
-      font-size: 20px;
-      margin-bottom: 10px;
-      color: #444;
-      border-bottom: 2px solid #b32d00;
-      padding-bottom: 5px;
-    }
-
-    .clear-btn {
-      background-color: #666;
-      margin-top: 10px;
-      padding: 5px 10px;
-      border: none;
-      border-radius: 5px;
-      color: white;
-      cursor: pointer;
-      font-size: 14px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام الحضور والانصراف - مطعم ريدان للمندي</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #cda45e;
+        }
+        .header h1 {
+            color: #cda45e;
+            font-size: 28px;
+            margin: 0;
+        }
+        .header p {
+            color: #777;
+            margin: 5px 0 0;
+        }
+        .form-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+        .form-section h2 {
+            color: #cda45e;
+            margin-top: 0;
+            font-size: 22px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="date"],
+        input[type="time"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .signature-pad {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            height: 100px;
+            margin-bottom: 10px;
+            background-color: white;
+        }
+        .btn {
+            background-color: #cda45e;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #b38b4a;
+        }
+        .whatsapp-btn {
+            background-color: #25D366;
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .whatsapp-btn:hover {
+            background-color: #1da851;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #777;
+            font-size: 14px;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            .header h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <div class="header">
+            <h1>نظام الحضور والانصراف</h1>
+            <p>مطعم ريدان للمندي</p>
+        </div>
 
-  <h1>مطعم ريدان المندي</h1>
+        <div class="form-section">
+            <h2>تسجيل الحضور</h2>
+            <div class="form-group">
+                <label for="employee-name">اسم الموظف</label>
+                <input type="text" id="employee-name" placeholder="ادخل اسم الموظف">
+            </div>
+            <div class="form-group">
+                <label for="attendance-date">تاريخ الحضور</label>
+                <input type="date" id="attendance-date">
+            </div>
+            <div class="form-group">
+                <label for="attendance-status">الحالة</label>
+                <select id="attendance-status">
+                    <option value="present">حاضر</option>
+                    <option value="absent">غائب</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>التوقيع</label>
+                <div class="signature-pad" id="attendance-signature"></div>
+                <button class="btn" onclick="clearSignature('attendance-signature')">مسح التوقيع</button>
+            </div>
+        </div>
 
-  <div class="form-section">
-    <div class="section-title">تسجيل الحضور</div>
-    <label for="name">اسم الموظف</label>
-    <input type="text" id="name" placeholder="اكتب اسمك">
+        <div class="form-section">
+            <h2>تسجيل الانصراف</h2>
+            <div class="form-group">
+                <label for="checkout-name">اسم الموظف</label>
+                <input type="text" id="checkout-name" placeholder="ادخل اسم الموظف">
+            </div>
+            <div class="form-group">
+                <label for="checkout-time">وقت الانصراف</label>
+                <input type="time" id="checkout-time">
+            </div>
+            <div class="form-group">
+                <label>التوقيع</label>
+                <div class="signature-pad" id="checkout-signature"></div>
+                <button class="btn" onclick="clearSignature('checkout-signature')">مسح التوقيع</button>
+            </div>
+        </div>
 
-    <label for="date">تاريخ الحضور</label>
-    <input type="date" id="date">
+        <a href="https://wa.me/971581505066?text=" id="whatsapp-link" class="btn whatsapp-btn">إرسال البيانات عبر واتساب</a>
 
-    <label for="status">الحالة</label>
-    <select id="status">
-      <option value="حاضر">حاضر</option>
-      <option value="غائب">غائب</option>
-    </select>
+        <div class="footer">
+            &copy; 2023 مطعم ريدان للمندي - جميع الحقوق محفوظة
+        </div>
+    </div>
 
-    <label>التوقيع</label>
-    <canvas id="signCanvas1"></canvas>
-    <button class="clear-btn" onclick="clearCanvas('signCanvas1')">مسح التوقيع</button>
-  </div>
+    <script>
+        // تهيئة لوحات التوقيع (في تطبيق حقيقي يجب استخدام مكتبة مثل Signature Pad)
+        function clearSignature(id) {
+            document.getElementById(id).innerHTML = '';
+        }
 
-  <div class="form-section">
-    <div class="section-title">تسجيل الانصراف</div>
-    <label for="leaveName">اسم الموظف</label>
-    <input type="text" id="leaveName" placeholder="اكتب اسمك">
+        // جمع البيانات وإعداد رسالة واتساب
+        document.getElementById('whatsapp-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const employeeName = document.getElementById('employee-name').value || 'غير محدد';
+            const attendanceDate = document.getElementById('attendance-date').value || 'غير محدد';
+            const attendanceStatus = document.getElementById('attendance-status').value === 'present' ? 'حاضر' : 'غائب';
+            const checkoutName = document.getElementById('checkout-name').value || 'غير محدد';
+            const checkoutTime = document.getElementById('checkout-time').value || 'غير محدد';
 
-    <label for="leaveTime">وقت الانصراف</label>
-    <input type="time" id="leaveTime">
+            const message = `*بيانات الحضور والانصراف - مطعم ريدان للمندي*
+            
+*تسجيل الحضور:*
+- اسم الموظف: ${employeeName}
+- تاريخ الحضور: ${attendanceDate}
+- الحالة: ${attendanceStatus}
 
-    <label>التوقيع</label>
-    <canvas id="signCanvas2"></canvas>
-    <button class="clear-btn" onclick="clearCanvas('signCanvas2')">مسح التوقيع</button>
-  </div>
+*تسجيل الانصراف:*
+- اسم الموظف: ${checkoutName}
+- وقت الانصراف: ${checkoutTime}
 
-  <button onclick="sendToWhatsApp()">تأكيد وإرسال عبر واتساب</button>
+تم إرسال البيانات في: ${new Date().toLocaleString()}`;
 
-  <script>
-    // إعداد لوحة التوقيع
-    function setupCanvas(id) {
-      const canvas = document.getElementById(id);
-      const ctx = canvas.getContext("2d");
-      let drawing = false;
-
-      function startDraw(e) {
-        drawing = true;
-        ctx.beginPath();
-        ctx.moveTo(getX(e), getY(e));
-      }
-
-      function draw(e) {
-        if (!drawing) return;
-        ctx.lineTo(getX(e), getY(e));
-        ctx.strokeStyle = "#000";
-        ctx.lineWidth = 2;
-        ctx.stroke();
-      }
-
-      function endDraw() {
-        drawing = false;
-      }
-
-      function getX(e) {
-        return e.touches ? e.touches[0].clientX - canvas.getBoundingClientRect().left :
-               e.clientX - canvas.getBoundingClientRect().left;
-      }
-
-      function getY(e) {
-        return e.touches ? e.touches[0].clientY - canvas.getBoundingClientRect().top :
-               e.clientY - canvas.getBoundingClientRect().top;
-      }
-
-      canvas.addEventListener("mousedown", startDraw);
-      canvas.addEventListener("mousemove", draw);
-      canvas.addEventListener("mouseup", endDraw);
-      canvas.addEventListener("mouseleave", endDraw);
-      canvas.addEventListener("touchstart", startDraw);
-      canvas.addEventListener("touchmove", draw);
-      canvas.addEventListener("touchend", endDraw);
-    }
-
-    function clearCanvas(id) {
-      const canvas = document.getElementById(id);
-      const ctx = canvas.getContext("2d");
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
-
-    function sendToWhatsApp() {
-      const name = document.getElementById('name').value;
-      const date = document.getElementById('date').value;
-      const status = document.getElementById('status').value;
-      const leaveName = document.getElementById('leaveName').value;
-      const leaveTime = document.getElementById('leaveTime').value;
-
-      const message = `📝 *تسجيل حضور وانصراف - مطعم ريدان المندي*\n\n🕒 *الحضور:*\n👤 الاسم: ${name}\n📅 التاريخ: ${date}\n✅ الحالة: ${status}\n\n🚪 *الانصراف:*\n👤 الاسم: ${leaveName}\n🕔 وقت الانصراف: ${leaveTime}\n\n📌 تم التوقيع يدوياً.`;
-
-      const phone = '971581505066';
-      const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-
-      window.open(url, '_blank');
-    }
-
-    window.onload = function () {
-      setupCanvas('signCanvas1');
-      setupCanvas('signCanvas2');
-    };
-  </script>
+            const encodedMessage = encodeURIComponent(message);
+            this.href = `https://wa.me/971581505066?text=${encodedMessage}`;
+            window.open(this.href, '_blank');
+        });
+    </script>
 </body>
 </html>
