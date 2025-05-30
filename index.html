@@ -41,7 +41,6 @@
             padding: 20px;
         }
         
-        /* التصميم الجديد للرأس */
         .header {
             background: linear-gradient(135deg, var(--dark-red), var(--gold));
             color: white;
@@ -101,7 +100,6 @@
             opacity: 0.9;
         }
         
-        /* تصميم بطاقات النماذج */
         .form-container {
             display: grid;
             grid-template-columns: 1fr;
@@ -184,7 +182,6 @@
             box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
         }
         
-        /* تصميم لوحة التوقيع المحسّن */
         .signature-container {
             margin: 2rem 0;
         }
@@ -252,7 +249,6 @@
             background-color: #e0e0e0;
         }
         
-        /* زر واتساب مميز */
         .whatsapp-btn {
             background: linear-gradient(135deg, #25D366, #128C7E);
             color: white;
@@ -266,6 +262,7 @@
             border-radius: 50px;
             position: relative;
             overflow: hidden;
+            text-decoration: none;
         }
         
         .whatsapp-btn:hover {
@@ -299,7 +296,6 @@
             100% { transform: translateX(100%) rotate(30deg); }
         }
         
-        /* التذييل */
         .footer {
             text-align: center;
             padding: 2rem 0;
@@ -314,7 +310,6 @@
             color: var(--dark-red);
         }
         
-        /* رسائل التنبيه */
         .alert {
             padding: 15px;
             border-radius: 8px;
@@ -334,7 +329,6 @@
             border: 1px solid #f5c6cb;
         }
         
-        /* تأثيرات للهواتف */
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 1.8rem;
@@ -471,7 +465,7 @@
             </section>
         </div>
         
-        <a href="#" id="whatsapp-link" class="btn whatsapp-btn">
+        <a href="https://wa.me/971581505066" id="whatsapp-link" class="btn whatsapp-btn" target="_blank">
             <i class="fab fa-whatsapp"></i> إرسال البيانات عبر واتساب
         </a>
         
@@ -484,15 +478,12 @@
     <script>
         // تهيئة التواريخ والوقت
         document.addEventListener('DOMContentLoaded', function() {
-            // تعيين سنة حقوق النشر
             document.getElementById('year').textContent = new Date().getFullYear();
             
-            // تعيين التاريخ الحالي
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('attendance-date').value = today;
             document.getElementById('checkout-date').value = today;
             
-            // تعيين الوقت الحالي
             const now = new Date();
             const hours = now.getHours().toString().padStart(2, '0');
             const minutes = now.getMinutes().toString().padStart(2, '0');
@@ -520,7 +511,6 @@
             throttle: 16
         });
         
-        // تعديل حجم لوحة التوقيع لتناسب الحاوية
         function resizeCanvas(canvas) {
             const ratio = Math.max(window.devicePixelRatio || 1, 1);
             canvas.width = canvas.offsetWidth * ratio;
@@ -528,7 +518,6 @@
             canvas.getContext('2d').scale(ratio, ratio);
         }
         
-        // تعديل الحجم عند تحميل الصفحة وعند تغيير حجم النافذة
         window.addEventListener('load', function() {
             resizeCanvas(attendanceCanvas);
             resizeCanvas(checkoutCanvas);
@@ -565,10 +554,8 @@
                 return;
             }
             
-            // هنا يمكنك إضافة كود لحفظ البيانات في قاعدة البيانات أو localStorage
             showAlert('attendance-alert', 'تم تسجيل الحضور بنجاح!', 'success');
             
-            // إعادة تعيين النموذج بعد الحفظ
             setTimeout(() => {
                 document.getElementById('employee-name').value = '';
                 document.getElementById('attendance-status').value = '';
@@ -593,60 +580,14 @@
                 return;
             }
             
-            // هنا يمكنك إضافة كود لحفظ البيانات في قاعدة البيانات أو localStorage
             showAlert('checkout-alert', 'تم تسجيل الانصراف بنجاح!', 'success');
             
-            // إعادة تعيين النموذج بعد الحفظ
             setTimeout(() => {
                 document.getElementById('checkout-name').value = '';
                 document.getElementById('checkout-notes').value = '';
                 checkoutSignaturePad.clear();
                 document.getElementById('checkout-alert').style.display = 'none';
             }, 3000);
-        });
-        
-        // إرسال البيانات عبر واتساب
-        document.getElementById('whatsapp-link').addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const employeeName = document.getElementById('employee-name').value || 'غير محدد';
-            const attendanceDate = document.getElementById('attendance-date').value || 'غير محدد';
-            const attendanceTime = document.getElementById('attendance-time').value || 'غير محدد';
-            const attendanceStatus = getStatusText(document.getElementById('attendance-status').value);
-            
-            const checkoutName = document.getElementById('checkout-name').value || 'غير محدد';
-            const checkoutDate = document.getElementById('checkout-date').value || 'غير محدد';
-            const checkoutTime = document.getElementById('checkout-time').value || 'غير محدد';
-            const checkoutNotes = document.getElementById('checkout-notes').value || 'لا توجد ملاحظات';
-            
-            const hasAttendanceSignature = !attendanceSignaturePad.isEmpty();
-            const hasCheckoutSignature = !checkoutSignaturePad.isEmpty();
-            
-            const message = `*تقرير الحضور والانصراف - مطعم ريدان للمندي*
-            
-📅 *تاريخ التقرير:* ${new Date().toLocaleDateString('ar-EG')}
-⏰ *وقت التقرير:* ${new Date().toLocaleTimeString('ar-EG')}
-
-👨‍💼 *بيانات الحضور:*
-- الاسم: ${employeeName}
-- التاريخ: ${attendanceDate}
-- الوقت: ${attendanceTime}
-- الحالة: ${attendanceStatus}
-- التوقيع: ${hasAttendanceSignature ? '✓ موجود' : '✗ غير موجود'}
-
-🚪 *بيانات الانصراف:*
-- الاسم: ${checkoutName}
-- التاريخ: ${checkoutDate}
-- الوقت: ${checkoutTime}
-- الملاحظات: ${checkoutNotes}
-- التوقيع: ${hasCheckoutSignature ? '✓ موجود' : '✗ غير موجود'}
-
-_تم إنشاء هذا التقرير تلقائياً بواسطة نظام إدارة الموظفين_
-_جميع الحقوق محفوظة © ${new Date().getFullYear()} مطعم ريدان للمندي_`;
-
-            const phoneNumber = '00971581505066';
-            const encodedMessage = encodeURIComponent(message);
-            window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
         });
         
         // وظائف مساعدة
