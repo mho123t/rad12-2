@@ -43,6 +43,16 @@
       font-family: inherit;
     }
 
+    canvas {
+      border: 1px solid #999;
+      border-radius: 5px;
+      width: 100%;
+      height: 150px;
+      margin-top: 10px;
+      cursor: crosshair;
+      background-color: #fdfdfd;
+    }
+
     button {
       margin-top: 20px;
       width: 100%;
@@ -67,6 +77,17 @@
       border-bottom: 2px solid #b32d00;
       padding-bottom: 5px;
     }
+
+    .clear-btn {
+      background-color: #666;
+      margin-top: 10px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
@@ -87,8 +108,9 @@
       <option value="غائب">غائب</option>
     </select>
 
-    <label for="signature">التوقيع</label>
-    <input type="text" id="signature" placeholder="التوقيع">
+    <label>التوقيع</label>
+    <canvas id="signCanvas1"></canvas>
+    <button class="clear-btn" onclick="clearCanvas('signCanvas1')">مسح التوقيع</button>
   </div>
 
   <div class="form-section">
@@ -99,30 +121,83 @@
     <label for="leaveTime">وقت الانصراف</label>
     <input type="time" id="leaveTime">
 
-    <label for="leaveSignature">التوقيع</label>
-    <input type="text" id="leaveSignature" placeholder="التوقيع">
+    <label>التوقيع</label>
+    <canvas id="signCanvas2"></canvas>
+    <button class="clear-btn" onclick="clearCanvas('signCanvas2')">مسح التوقيع</button>
   </div>
 
   <button onclick="sendToWhatsApp()">تأكيد وإرسال عبر واتساب</button>
 
   <script>
+    // رسم التوقيع
+    function setupCanvas(id) {
+      const canvas = document.getElementById(id);
+      const ctx = canvas.getContext("2d");
+      let drawing = false;
+
+      function startDraw(e) {
+        drawing = true;
+        ctx.beginPath();
+        ctx.moveTo(getX(e), getY(e));
+      }
+
+      function draw(e) {
+        if (!drawing) return;
+        ctx.lineTo(getX(e), getY(e));
+        ctx.strokeStyle = "#000";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
+
+      function endDraw() {
+        drawing = false;
+      }
+
+      function getX(e) {
+        return e.touches ? e.touches[0].clientX - canvas.getBoundingClientRect().left :
+               e.clientX - canvas.getBoundingClientRect().left;
+      }
+
+      function getY(e) {
+        return e.touches ? e.touches[0].clientY - canvas.getBoundingClientRect().top :
+               e.clientY - canvas.getBoundingClientRect().top;
+      }
+
+      canvas.addEventListener("mousedown", startDraw);
+      canvas.addEventListener("mousemove", draw);
+      canvas.addEventListener("mouseup", endDraw);
+      canvas.addEventListener("mouseleave", endDraw);
+      canvas.addEventListener("touchstart", startDraw);
+      canvas.addEventListener("touchmove", draw);
+      canvas.addEventListener("touchend", endDraw);
+    }
+
+    function clearCanvas(id) {
+      const canvas = document.getElementById(id);
+      const ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
     function sendToWhatsApp() {
       const name = document.getElementById('name').value;
       const date = document.getElementById('date').value;
       const status = document.getElementById('status').value;
-      const signature = document.getElementById('signature').value;
       const leaveName = document.getElementById('leaveName').value;
       const leaveTime = document.getElementById('leaveTime').value;
-      const leaveSignature = document.getElementById('leaveSignature').value;
 
-      const message = `📝 *تسجيل حضور وانصراف - مطعم ريدان المندي*\n\n🕒 *الحضور:*\n👤 الاسم: ${name}\n📅 التاريخ: ${date}\n✅ الحالة: ${status}\n✍️ التوقيع: ${signature}\n\n🚪 *الانصراف:*\n👤 الاسم: ${leaveName}\n🕔 وقت الانصراف: ${leaveTime}\n✍️ التوقيع: ${leaveSignature}`;
+      const message = `📝 *تسجيل حضور وانصراف - مطعم ريدان المندي*\n\n🕒 *الحضور:*\n👤 الاسم: ${name}\n📅 التاريخ: ${date}\n✅ الحالة: ${status}\n\n🚪 *الانصراف:*\n👤 الاسم: ${leaveName}\n🕔 وقت الانصراف: ${leaveTime}\n\n📌 تم التوقيع يدوياً.`;
 
       const phone = '00971581505066';
       const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
       window.open(url, '_blank');
     }
-  </script>
 
+    // تهيئة اللوحات
+    window.onload = function () {
+      setupCanvas('signCanvas1');
+      setupCanvas('signCanvas2');
+    };
+  </script>
 </body>
 </html>
