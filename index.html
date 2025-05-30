@@ -7,46 +7,52 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
+        
         :root {
-            --primary-color: #d4af37; /* ذهبي فاخر */
-            --secondary-color: #8b0000; /* بوردو غامق */
-            --accent-color: #f8f1e5; /* كريمي */
-            --text-color: #333;
-            --light-text: #777;
-            --background: #f9f5f0;
-            --card-bg: #fff;
+            --gold: #D4AF37;
+            --dark-red: #7A1C1C;
+            --light-gold: #F0E6C2;
+            --cream: #FFF9EE;
+            --dark: #2A2A2A;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
         
         body {
-            font-family: 'Tajawal', 'Arial', sans-serif;
-            background-color: var(--background);
-            margin: 0;
-            padding: 0;
-            color: var(--text-color);
-            background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--cream);
+            color: var(--dark);
+            line-height: 1.6;
+            background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
             background-blend-mode: overlay;
-            background-color: rgba(249, 245, 240, 0.9);
         }
         
         .container {
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 0 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
         
+        /* التصميم الجديد للرأس */
         .header {
-            text-align: center;
-            margin-bottom: 40px;
-            position: relative;
-            padding: 25px 0;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, var(--dark-red), var(--gold));
             color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
             overflow: hidden;
+            border: 2px solid var(--gold);
         }
         
         .header::before {
@@ -56,8 +62,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=1469&q=80') center/cover;
-            opacity: 0.2;
+            background: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80') center/cover;
+            opacity: 0.15;
             z-index: 0;
         }
         
@@ -66,69 +72,80 @@
             z-index: 1;
         }
         
-        .header h1 {
-            font-size: 2.5rem;
-            margin: 0;
-            padding: 0;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-        
-        .header p {
-            font-size: 1.2rem;
-            margin-top: 10px;
-            opacity: 0.9;
-        }
-        
         .logo {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 15px;
+            width: 100px;
+            height: 100px;
             background-color: white;
             border-radius: 50%;
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            margin-bottom: 1rem;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 3px solid var(--gold);
         }
         
         .logo i {
-            font-size: 2.5rem;
-            color: var(--secondary-color);
+            font-size: 3rem;
+            color: var(--dark-red);
         }
         
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        /* تصميم بطاقات النماذج */
         .form-container {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 30px;
-            margin-bottom: 40px;
+            gap: 2rem;
+            margin-bottom: 3rem;
         }
         
-        @media (min-width: 768px) {
+        @media (min-width: 992px) {
             .form-container {
                 grid-template-columns: 1fr 1fr;
             }
         }
         
         .form-section {
-            background-color: var(--card-bg);
+            background: white;
             border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             border: 1px solid rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         
         .form-section:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .form-section::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--gold), var(--dark-red));
         }
         
         .form-section h2 {
-            color: var(--secondary-color);
-            margin-top: 0;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--primary-color);
+            color: var(--dark-red);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px dashed var(--gold);
             font-size: 1.5rem;
             display: flex;
             align-items: center;
@@ -136,17 +153,18 @@
         
         .form-section h2 i {
             margin-left: 10px;
+            color: var(--gold);
         }
         
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 1.5rem;
         }
         
         label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 0.5rem;
             font-weight: 600;
-            color: var(--secondary-color);
+            color: var(--dark-red);
         }
         
         input, select {
@@ -155,33 +173,41 @@
             border: 1px solid #ddd;
             border-radius: 8px;
             font-size: 1rem;
-            transition: border 0.3s, box-shadow 0.3s;
-            background-color: var(--accent-color);
+            font-family: 'Tajawal', sans-serif;
+            transition: all 0.3s;
+            background-color: var(--cream);
         }
         
         input:focus, select:focus {
             outline: none;
-            border-color: var(--primary-color);
+            border-color: var(--gold);
             box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
         }
         
+        /* تصميم لوحة التوقيع المحسّن */
         .signature-container {
-            margin-top: 20px;
+            margin: 2rem 0;
         }
         
         .signature-label {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .signature-pad-container {
+            border: 2px dashed var(--gold);
+            border-radius: 10px;
+            background-color: white;
+            position: relative;
+            margin-bottom: 1rem;
         }
         
         .signature-pad {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background-color: white;
-            cursor: crosshair;
-            margin-bottom: 10px;
+            width: 100%;
+            height: 150px;
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='6' fill='black'/></svg>") 8 8, crosshair;
         }
         
         .signature-actions {
@@ -200,6 +226,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            font-family: 'Tajawal', sans-serif;
         }
         
         .btn i {
@@ -207,70 +234,107 @@
         }
         
         .btn-primary {
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--gold), var(--dark-red));
             color: white;
         }
         
         .btn-primary:hover {
-            background-color: #c19b2e;
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
         .btn-secondary {
-            background-color: #f0f0f0;
-            color: var(--text-color);
+            background-color: #f5f5f5;
+            color: var(--dark);
         }
         
         .btn-secondary:hover {
             background-color: #e0e0e0;
         }
         
-        .btn-danger {
-            background-color: #dc3545;
-            color: white;
-        }
-        
-        .btn-danger:hover {
-            background-color: #c82333;
-        }
-        
+        /* زر واتساب مميز */
         .whatsapp-btn {
-            background-color: #25D366;
+            background: linear-gradient(135deg, #25D366, #128C7E);
             color: white;
             display: block;
             text-align: center;
-            margin: 40px auto;
+            margin: 3rem auto;
             padding: 15px 25px;
             font-size: 1.1rem;
             max-width: 300px;
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.3);
+            border-radius: 50px;
+            position: relative;
+            overflow: hidden;
         }
         
         .whatsapp-btn:hover {
-            background-color: #128C7E;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
         }
         
+        .whatsapp-btn::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0) 45%,
+                rgba(255, 255, 255, 0.3) 48%,
+                rgba(255, 255, 255, 0.3) 52%,
+                rgba(255, 255, 255, 0) 55%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(30deg); }
+            20% { transform: translateX(100%) rotate(30deg); }
+            100% { transform: translateX(100%) rotate(30deg); }
+        }
+        
+        /* التذييل */
         .footer {
             text-align: center;
-            padding: 30px 0;
-            color: var(--light-text);
+            padding: 2rem 0;
+            color: var(--dark);
             font-size: 0.9rem;
             border-top: 1px solid rgba(0, 0, 0, 0.1);
-            margin-top: 50px;
+            margin-top: 3rem;
         }
         
-        .watermark {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            opacity: 0.7;
-            font-size: 0.8rem;
-            color: var(--light-text);
+        .copyright {
+            font-weight: 700;
+            color: var(--dark-red);
         }
         
-        /* تحسينات للواجهة على الهواتف */
+        /* رسائل التنبيه */
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        /* تأثيرات للهواتف */
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 1.8rem;
@@ -281,37 +345,17 @@
             }
             
             .form-section {
-                padding: 20px;
+                padding: 1.5rem;
             }
-        }
-        
-        /* تأثيرات إضافية */
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        /* تخصيص شريط التمرير */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: var(--accent-color);
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary-color);
-            border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: #c19b2e;
+            
+            .logo {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .logo i {
+                font-size: 2.5rem;
+            }
         }
     </style>
 </head>
@@ -323,9 +367,17 @@
                     <i class="fas fa-utensils"></i>
                 </div>
                 <h1>نظام الحضور والانصراف</h1>
-                <p>مطعم ريدان للمندي - إدارة الموارد البشرية</p>
+                <p>مطعم ريدان للمندي - إدارة الموظفين</p>
             </div>
         </header>
+        
+        <div id="attendance-alert" class="alert alert-success">
+            تم تسجيل الحضور بنجاح! <i class="fas fa-check-circle"></i>
+        </div>
+        
+        <div id="checkout-alert" class="alert alert-success">
+            تم تسجيل الانصراف بنجاح! <i class="fas fa-check-circle"></i>
+        </div>
         
         <div class="form-container">
             <section class="form-section">
@@ -333,22 +385,23 @@
                 
                 <div class="form-group">
                     <label for="employee-name">اسم الموظف</label>
-                    <input type="text" id="employee-name" placeholder="الرجاء إدخال الاسم الكامل">
+                    <input type="text" id="employee-name" placeholder="الرجاء إدخال الاسم الكامل" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="attendance-date">تاريخ الحضور</label>
-                    <input type="date" id="attendance-date">
+                    <input type="date" id="attendance-date" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="attendance-time">وقت الحضور</label>
-                    <input type="time" id="attendance-time">
+                    <input type="time" id="attendance-time" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="attendance-status">حالة الحضور</label>
-                    <select id="attendance-status">
+                    <select id="attendance-status" required>
+                        <option value="" disabled selected>اختر الحالة</option>
                         <option value="present">حاضر</option>
                         <option value="late">متأخر</option>
                         <option value="absent">غائب</option>
@@ -356,20 +409,22 @@
                     </select>
                 </div>
                 
-                <div class="form-group signature-container">
+                <div class="signature-container">
                     <div class="signature-label">
-                        <span>التوقيع</span>
+                        <label>توقيع الموظف</label>
                         <div class="signature-actions">
-                            <button class="btn btn-secondary" id="clear-attendance-signature">
-                                <i class="fas fa-eraser"></i> مسح
+                            <button type="button" class="btn btn-secondary" id="clear-attendance-signature">
+                                <i class="fas fa-eraser"></i> مسح التوقيع
                             </button>
                         </div>
                     </div>
-                    <canvas id="attendance-signature" class="signature-pad" width="400" height="150"></canvas>
+                    <div class="signature-pad-container">
+                        <canvas id="attendance-signature" class="signature-pad"></canvas>
+                    </div>
                 </div>
                 
-                <button class="btn btn-primary" id="save-attendance">
-                    <i class="fas fa-save"></i> حفظ الحضور
+                <button type="button" class="btn btn-primary" id="save-attendance">
+                    <i class="fas fa-save"></i> حفظ بيانات الحضور
                 </button>
             </section>
             
@@ -378,101 +433,177 @@
                 
                 <div class="form-group">
                     <label for="checkout-name">اسم الموظف</label>
-                    <input type="text" id="checkout-name" placeholder="الرجاء إدخال الاسم الكامل">
+                    <input type="text" id="checkout-name" placeholder="الرجاء إدخال الاسم الكامل" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="checkout-date">تاريخ الانصراف</label>
-                    <input type="date" id="checkout-date">
+                    <input type="date" id="checkout-date" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="checkout-time">وقت الانصراف</label>
-                    <input type="time" id="checkout-time">
+                    <input type="time" id="checkout-time" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="checkout-notes">ملاحظات</label>
+                    <label for="checkout-notes">ملاحظات (اختياري)</label>
                     <input type="text" id="checkout-notes" placeholder="أي ملاحظات إضافية">
                 </div>
                 
-                <div class="form-group signature-container">
+                <div class="signature-container">
                     <div class="signature-label">
-                        <span>التوقيع</span>
+                        <label>توقيع الموظف</label>
                         <div class="signature-actions">
-                            <button class="btn btn-secondary" id="clear-checkout-signature">
-                                <i class="fas fa-eraser"></i> مسح
+                            <button type="button" class="btn btn-secondary" id="clear-checkout-signature">
+                                <i class="fas fa-eraser"></i> مسح التوقيع
                             </button>
                         </div>
                     </div>
-                    <canvas id="checkout-signature" class="signature-pad" width="400" height="150"></canvas>
+                    <div class="signature-pad-container">
+                        <canvas id="checkout-signature" class="signature-pad"></canvas>
+                    </div>
                 </div>
                 
-                <button class="btn btn-primary" id="save-checkout">
-                    <i class="fas fa-save"></i> حفظ الانصراف
+                <button type="button" class="btn btn-primary" id="save-checkout">
+                    <i class="fas fa-save"></i> حفظ بيانات الانصراف
                 </button>
             </section>
         </div>
         
-        <a href="#" id="whatsapp-link" class="btn whatsapp-btn pulse">
+        <a href="#" id="whatsapp-link" class="btn whatsapp-btn">
             <i class="fab fa-whatsapp"></i> إرسال البيانات عبر واتساب
         </a>
         
         <footer class="footer">
-            <p>جميع الحقوق محفوظة &copy; <span id="year"></span> مطعم ريدان للمندي</p>
-            <p>تصميم وتطوير نظام إدارة الموارد البشرية</p>
-            <div class="social-links" style="margin-top: 15px;">
-                <a href="#" style="color: var(--primary-color); margin: 0 10px; font-size: 1.2rem;">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="#" style="color: var(--primary-color); margin: 0 10px; font-size: 1.2rem;">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="#" style="color: var(--primary-color); margin: 0 10px; font-size: 1.2rem;">
-                    <i class="fab fa-facebook"></i>
-                </a>
-            </div>
+            <p class="copyright">جميع الحقوق محفوظة &copy; <span id="year"></span> مطعم ريدان للمندي</p>
+            <p>نظام إدارة الحضور والانصراف - النسخة 1.0</p>
         </footer>
     </div>
     
-    <div class="watermark">نسخة 1.0.0 - مطعم ريدان للمندي</div>
-    
     <script>
+        // تهيئة التواريخ والوقت
+        document.addEventListener('DOMContentLoaded', function() {
+            // تعيين سنة حقوق النشر
+            document.getElementById('year').textContent = new Date().getFullYear();
+            
+            // تعيين التاريخ الحالي
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('attendance-date').value = today;
+            document.getElementById('checkout-date').value = today;
+            
+            // تعيين الوقت الحالي
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            document.getElementById('attendance-time').value = `${hours}:${minutes}`;
+            document.getElementById('checkout-time').value = `${hours}:${minutes}`;
+        });
+        
         // تهيئة لوحات التوقيع
         const attendanceCanvas = document.getElementById('attendance-signature');
         const checkoutCanvas = document.getElementById('checkout-signature');
         
         const attendanceSignaturePad = new SignaturePad(attendanceCanvas, {
             backgroundColor: 'rgb(255, 255, 255)',
-            penColor: 'rgb(0, 0, 0)'
+            penColor: 'rgb(0, 0, 0)',
+            minWidth: 1,
+            maxWidth: 3,
+            throttle: 16
         });
         
         const checkoutSignaturePad = new SignaturePad(checkoutCanvas, {
             backgroundColor: 'rgb(255, 255, 255)',
-            penColor: 'rgb(0, 0, 0)'
+            penColor: 'rgb(0, 0, 0)',
+            minWidth: 1,
+            maxWidth: 3,
+            throttle: 16
+        });
+        
+        // تعديل حجم لوحة التوقيع لتناسب الحاوية
+        function resizeCanvas(canvas) {
+            const ratio = Math.max(window.devicePixelRatio || 1, 1);
+            canvas.width = canvas.offsetWidth * ratio;
+            canvas.height = canvas.offsetHeight * ratio;
+            canvas.getContext('2d').scale(ratio, ratio);
+        }
+        
+        // تعديل الحجم عند تحميل الصفحة وعند تغيير حجم النافذة
+        window.addEventListener('load', function() {
+            resizeCanvas(attendanceCanvas);
+            resizeCanvas(checkoutCanvas);
+        });
+        
+        window.addEventListener('resize', function() {
+            resizeCanvas(attendanceCanvas);
+            resizeCanvas(checkoutCanvas);
         });
         
         // مسح التوقيع
-        document.getElementById('clear-attendance-signature').addEventListener('click', () => {
+        document.getElementById('clear-attendance-signature').addEventListener('click', function() {
             attendanceSignaturePad.clear();
         });
         
-        document.getElementById('clear-checkout-signature').addEventListener('click', () => {
+        document.getElementById('clear-checkout-signature').addEventListener('click', function() {
             checkoutSignaturePad.clear();
         });
         
-        // ضبط التواريخ الافتراضية
-        document.getElementById('attendance-date').valueAsDate = new Date();
-        document.getElementById('checkout-date').valueAsDate = new Date();
+        // حفظ بيانات الحضور
+        document.getElementById('save-attendance').addEventListener('click', function() {
+            const employeeName = document.getElementById('employee-name').value;
+            const attendanceDate = document.getElementById('attendance-date').value;
+            const attendanceTime = document.getElementById('attendance-time').value;
+            const attendanceStatus = document.getElementById('attendance-status').value;
+            
+            if (!employeeName || !attendanceDate || !attendanceTime || !attendanceStatus) {
+                showAlert('attendance-alert', 'الرجاء ملء جميع الحقول المطلوبة', 'error');
+                return;
+            }
+            
+            if (attendanceSignaturePad.isEmpty()) {
+                showAlert('attendance-alert', 'الرجاء إضافة التوقيع', 'error');
+                return;
+            }
+            
+            // هنا يمكنك إضافة كود لحفظ البيانات في قاعدة البيانات أو localStorage
+            showAlert('attendance-alert', 'تم تسجيل الحضور بنجاح!', 'success');
+            
+            // إعادة تعيين النموذج بعد الحفظ
+            setTimeout(() => {
+                document.getElementById('employee-name').value = '';
+                document.getElementById('attendance-status').value = '';
+                attendanceSignaturePad.clear();
+                document.getElementById('attendance-alert').style.display = 'none';
+            }, 3000);
+        });
         
-        // ضبط الوقت الافتراضي
-        const now = new Date();
-        const timeString = now.toTimeString().substring(0, 5);
-        document.getElementById('attendance-time').value = timeString;
-        document.getElementById('checkout-time').value = timeString;
-        
-        // تحديث سنة حقوق النشر
-        document.getElementById('year').textContent = new Date().getFullYear();
+        // حفظ بيانات الانصراف
+        document.getElementById('save-checkout').addEventListener('click', function() {
+            const checkoutName = document.getElementById('checkout-name').value;
+            const checkoutDate = document.getElementById('checkout-date').value;
+            const checkoutTime = document.getElementById('checkout-time').value;
+            
+            if (!checkoutName || !checkoutDate || !checkoutTime) {
+                showAlert('checkout-alert', 'الرجاء ملء جميع الحقول المطلوبة', 'error');
+                return;
+            }
+            
+            if (checkoutSignaturePad.isEmpty()) {
+                showAlert('checkout-alert', 'الرجاء إضافة التوقيع', 'error');
+                return;
+            }
+            
+            // هنا يمكنك إضافة كود لحفظ البيانات في قاعدة البيانات أو localStorage
+            showAlert('checkout-alert', 'تم تسجيل الانصراف بنجاح!', 'success');
+            
+            // إعادة تعيين النموذج بعد الحفظ
+            setTimeout(() => {
+                document.getElementById('checkout-name').value = '';
+                document.getElementById('checkout-notes').value = '';
+                checkoutSignaturePad.clear();
+                document.getElementById('checkout-alert').style.display = 'none';
+            }, 3000);
+        });
         
         // إرسال البيانات عبر واتساب
         document.getElementById('whatsapp-link').addEventListener('click', function(e) {
@@ -481,45 +612,36 @@
             const employeeName = document.getElementById('employee-name').value || 'غير محدد';
             const attendanceDate = document.getElementById('attendance-date').value || 'غير محدد';
             const attendanceTime = document.getElementById('attendance-time').value || 'غير محدد';
-            const attendanceStatus = document.getElementById('attendance-status').value;
-            
-            let statusText = '';
-            switch(attendanceStatus) {
-                case 'present': statusText = 'حاضر'; break;
-                case 'late': statusText = 'متأخر'; break;
-                case 'absent': statusText = 'غائب'; break;
-                case 'vacation': statusText = 'إجازة'; break;
-                default: statusText = 'غير محدد';
-            }
+            const attendanceStatus = getStatusText(document.getElementById('attendance-status').value);
             
             const checkoutName = document.getElementById('checkout-name').value || 'غير محدد';
             const checkoutDate = document.getElementById('checkout-date').value || 'غير محدد';
             const checkoutTime = document.getElementById('checkout-time').value || 'غير محدد';
             const checkoutNotes = document.getElementById('checkout-notes').value || 'لا توجد ملاحظات';
             
-            // التحقق من التوقيعات
             const hasAttendanceSignature = !attendanceSignaturePad.isEmpty();
             const hasCheckoutSignature = !checkoutSignaturePad.isEmpty();
             
             const message = `*تقرير الحضور والانصراف - مطعم ريدان للمندي*
             
-📅 *تاريخ الإرسال:* ${new Date().toLocaleDateString('ar-EG')}
-⏰ *وقت الإرسال:* ${new Date().toLocaleTimeString('ar-EG')}
+📅 *تاريخ التقرير:* ${new Date().toLocaleDateString('ar-EG')}
+⏰ *وقت التقرير:* ${new Date().toLocaleTimeString('ar-EG')}
 
-📌 *تفاصيل الحضور:*
+👨‍💼 *بيانات الحضور:*
 - الاسم: ${employeeName}
 - التاريخ: ${attendanceDate}
 - الوقت: ${attendanceTime}
-- الحالة: ${statusText}
-- التوقيع: ${hasAttendanceSignature ? '✓' : '✗'}
+- الحالة: ${attendanceStatus}
+- التوقيع: ${hasAttendanceSignature ? '✓ موجود' : '✗ غير موجود'}
 
-🚪 *تفاصيل الانصراف:*
+🚪 *بيانات الانصراف:*
 - الاسم: ${checkoutName}
 - التاريخ: ${checkoutDate}
 - الوقت: ${checkoutTime}
 - الملاحظات: ${checkoutNotes}
-- التوقيع: ${hasCheckoutSignature ? '✓' : '✗'}
+- التوقيع: ${hasCheckoutSignature ? '✓ موجود' : '✗ غير موجود'}
 
+_تم إنشاء هذا التقرير تلقائياً بواسطة نظام إدارة الموظفين_
 _جميع الحقوق محفوظة © ${new Date().getFullYear()} مطعم ريدان للمندي_`;
 
             const phoneNumber = '00971581505066';
@@ -527,44 +649,27 @@ _جميع الحقوق محفوظة © ${new Date().getFullYear()} مطعم ري
             window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
         });
         
-        // حفظ البيانات (يمكن تطويرها لتخزين محلي أو إرسال لخادم)
-        document.getElementById('save-attendance').addEventListener('click', () => {
-            if (attendanceSignaturePad.isEmpty()) {
-                alert('الرجاء إضافة التوقيع قبل الحفظ');
-                return;
+        // وظائف مساعدة
+        function getStatusText(status) {
+            switch(status) {
+                case 'present': return 'حاضر';
+                case 'late': return 'متأخر';
+                case 'absent': return 'غائب';
+                case 'vacation': return 'إجازة';
+                default: return 'غير محدد';
             }
-            
-            // هنا يمكنك إضافة كود لحفظ البيانات
-            alert('تم حفظ بيانات الحضور بنجاح');
-        });
-        
-        document.getElementById('save-checkout').addEventListener('click', () => {
-            if (checkoutSignaturePad.isEmpty()) {
-                alert('الرجاء إضافة التوقيع قبل الحفظ');
-                return;
-            }
-            
-            // هنا يمكنك إضافة كود لحفظ البيانات
-            alert('تم حفظ بيانات الانصراف بنجاح');
-        });
-        
-        // تعديل حجم لوحة التوقيع عند تغيير حجم النافذة
-        function resizeCanvas(canvas, signaturePad) {
-            const ratio = Math.max(window.devicePixelRatio || 1, 1);
-            canvas.width = canvas.offsetWidth * ratio;
-            canvas.height = canvas.offsetHeight * ratio;
-            canvas.getContext("2d").scale(ratio, ratio);
-            signaturePad.clear(); // مسح التوقيع عند تغيير الحجم
         }
         
-        window.addEventListener('resize', () => {
-            resizeCanvas(attendanceCanvas, attendanceSignaturePad);
-            resizeCanvas(checkoutCanvas, checkoutSignaturePad);
-        });
-        
-        // تهيئة الحجم الأولي
-        resizeCanvas(attendanceCanvas, attendanceSignaturePad);
-        resizeCanvas(checkoutCanvas, checkoutSignaturePad);
+        function showAlert(id, message, type) {
+            const alert = document.getElementById(id);
+            alert.textContent = message;
+            alert.className = `alert alert-${type}`;
+            alert.style.display = 'block';
+            
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 5000);
+        }
     </script>
 </body>
 </html>
