@@ -34,7 +34,7 @@
       font-weight: bold;
     }
 
-    input, select, textarea {
+    input, select {
       width: 100%;
       padding: 10px;
       margin-top: 5px;
@@ -129,7 +129,7 @@
   <button onclick="sendToWhatsApp()">تأكيد وإرسال عبر واتساب</button>
 
   <script>
-    // رسم التوقيع
+    // إعداد لوحة التوقيع
     function setupCanvas(id) {
       const canvas = document.getElementById(id);
       const ctx = canvas.getContext("2d");
@@ -187,13 +187,12 @@
 
       const message = `📝 *تسجيل حضور وانصراف - مطعم ريدان المندي*\n\n🕒 *الحضور:*\n👤 الاسم: ${name}\n📅 التاريخ: ${date}\n✅ الحالة: ${status}\n\n🚪 *الانصراف:*\n👤 الاسم: ${leaveName}\n🕔 وقت الانصراف: ${leaveTime}\n\n📌 تم التوقيع يدوياً.`;
 
-      const phone = '00971581505066';
+      const phone = '971581505066';
       const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
       window.open(url, '_blank');
     }
 
-    // تهيئة اللوحات
     window.onload = function () {
       setupCanvas('signCanvas1');
       setupCanvas('signCanvas2');
